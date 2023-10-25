@@ -1,0 +1,55 @@
+.form {
+    width: 100%;
+    /* min-height: 80vh; */
+    display: flex;
+    justify-content: center;
+    margin: 4rem 0 10rem;
+  }
+  
+  .formInside {
+    padding: 4rem;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    background: rgb(240, 149, 217);
+  }
+  
+  .formInside h2 {
+    margin: 0 0 1rem 0;
+    padding: 0;
+  }
+  .enterVal {
+    margin: 0.5rem;
+    width: 100%;
+  }
+  
+  .enterVal label {
+    display: block;
+    margin: 0 0 0.2rem 0;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .enterVal input {
+    width: 100%;
+    padding: 0.5rem;
+    border-style: none;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+  }
+  
+  .formInside button {
+    width: 100%;
+    display: block;
+    background-color: rgb(50, 141, 150);
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 5px;
+    margin: 0.5rem;
+  }
