@@ -1,0 +1,30 @@
+/* Home.css */
+
+.home-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px; /* Add rounded corners to the header */
+}
+
+.header .left {
+  font-size: 24px;
+}
+
+.header .right .complete-profile {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px; /* Add rounded corners to the button */
+}
+

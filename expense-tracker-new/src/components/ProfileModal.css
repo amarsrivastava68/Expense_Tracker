@@ -1,0 +1,79 @@
+/* Home.css */
+
+.home-container {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px; /* Add rounded corners to the header */
+  }
+  
+  .header .left {
+    font-size: 24px;
+  }
+  
+  .header .right .complete-profile {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px; /* Add rounded corners to the button */
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners with a larger radius for a modern look */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: left; /* Left-align content for better readability */
+    font-family: 'Arial', sans-serif; /* Choose a modern, readable font */
+    max-width: 400px; /* Set a maximum width for better content display */
+  }
+  
+  .modal .profile-input {
+    width: 90%;
+    margin-bottom: 15px; /* Increased margin for separation */
+    padding: 10px; /* Increased padding for input fields */
+    border: 2px solid #ccc; /* Thicker border for input fields */
+    border-radius: 5px; /* Rounded corners for input fields */
+  }
+  
+  .modal .save-button,
+  .modal .close-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px; /* Larger padding for buttons */
+    margin-right: 10px; /* Margin for button separation */
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners for buttons */
+    font-weight: bold; /* Make text bold for buttons */
+    transition: background-color 0.3s; /* Add a transition effect for button hover */
+  }
+  
+  .modal .save-button:hover,
+  .modal .close-button:hover {
+    background-color: #0056b3; /* Darker background color on button hover */
+  }
+  

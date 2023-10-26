@@ -1,9 +1,37 @@
-import React from 'react'
+import React, { useState } from "react";
+import "./Home.css"; // Import your CSS file
+import ProfileModal from "../components/ProfileModal";
 
 const Home = () => {
-  return (
-    <div>Hello welcome to my expense tracker</div>
-  )
-}
+  const [showModal, setShowModal] = useState(false);
 
-export default Home
+  const handleCompleteProfile = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  
+  return (
+    <div className="home-container">
+      <div className="header">
+        <div className="left">Welcome to the Expense Tracker</div>
+        <div className="right">
+          <button className="complete-profile" onClick={handleCompleteProfile}>
+            Complete Your Profile
+          </button>
+        </div>
+      </div>
+
+      <ProfileModal
+        showModal={showModal}
+        onClose={handleCloseModal}
+        
+      />
+    </div>
+  );
+};
+
+export default Home;
