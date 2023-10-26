@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState   , useContext} from "react";
+
 import classes from "./LoginPage.module.css";
+import AuthContext from '../store/auth-context'
+import {useNavigate} from 'react-router-dom'
 
 const LoginPage = () => {
-  const [haveAccount, sethaveAccount] = useState(false);
+  const [haveAccount, sethaveAccount] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [userPass, setUserPass] = useState("");
-
+  const authCtx = useContext(AuthContext)
+  const navigate = useNavigate()
   const switchAuthModeHandler = () => {
     sethaveAccount((prev) => !prev);
   };
@@ -36,12 +40,14 @@ const LoginPage = () => {
           "Content-Type": "application/json",
         },
       });
+      
       console.log(resp);
       setIsLoading(false);
       if (resp.ok) {
         const data = await resp.json();
-
+        authCtx.login(data.idToken, userName)
         console.log(data);
+       navigate('/home')
       } else {
         let errorMessage = "Authentication failed";
         const data = await resp.json();
@@ -101,7 +107,7 @@ const LoginPage = () => {
             <b>Sending Requests...</b>
           </p>
         )}
-        {haveAccount && <button onClick={() => {}}>Logout</button>}
+        {authCtx.isLoggedIn && <button onClick={() => {}}>Logout</button>}
       </div>
     </form>
   );
