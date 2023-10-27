@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const AuthContext = React.createContext({
   token: '',
@@ -56,6 +56,8 @@ export const AuthContextProvider = (props) => {
     login: loginHandler,
     logout: logoutHandler,
   }
+
+
 
   return (
     <AuthContext.Provider value={contextValue}>

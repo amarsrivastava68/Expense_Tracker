@@ -8,14 +8,14 @@ const ProfileModal = ({ showModal, onClose }) => {
   const authCtx = useContext(AuthContext);
 
   const handleUpdateProfile = async () => {
-    console.log(authCtx, "good ");
+    
     // Prepare the data to be sent in the POST request
 
     const data = {
       displayName: name,
       idToken: authCtx.token,
       photoUrl: profilePictureURL,
-      deleteAttribute: ["DISPLAY_NAME"],
+      
       returnSecureToken: true,
     };
 
@@ -34,7 +34,7 @@ const ProfileModal = ({ showModal, onClose }) => {
       if (response.ok) {
         // The API request was successful, you can handle the response here
         console.log("Profile updated successfully");
-        console.log(response);
+        
         onClose(); // Close the modal after a successful update
       } else {
         console.error("Failed to update profile");

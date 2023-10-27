@@ -28,3 +28,33 @@
   border-radius: 5px; /* Add rounded corners to the button */
 }
 
+.profile-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex; /* Display children horizontally */
+  flex-direction: column; /* Stack children vertically within the container */
+}
+
+.profile-input {
+  display: flex;
+  flex-direction: row; /* Display name and input fields side by side */
+  align-items: center;
+  margin: 10px 0;
+}
+
+.profile-input label {
+  font-weight: bold;
+  flex: 1; /* Allow label to grow and take available space */
+}
+
+.profile-input input {
+  flex: 3; /* Allow input field to grow and take available space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 16px;
+}
