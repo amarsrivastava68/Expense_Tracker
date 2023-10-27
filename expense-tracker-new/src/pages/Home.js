@@ -48,6 +48,32 @@ const Home = () => {
       });
   };
 
+  const sendVerificationEmail = () => {
+  
+    
+
+    fetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB5b9Cds4vuHy_NCTXaZORHjjUDh-OQmn0`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        requestType: "VERIFY_EMAIL",
+        idToken: authCtx.token,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log(response)
+          alert("Verification email sent successfully.");
+        } else {
+          alert("Error sending verification email.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending verification email:", error);
+      });
+  };
   const handleCompleteProfile = () => {
     setShowModal(true);
   };
@@ -63,6 +89,10 @@ const Home = () => {
         <div className="right">
           <button className="complete-profile" onClick={handleCompleteProfile}>
             Update your profile 
+          </button>
+          
+          <button className="Logout" onClick={authCtx.logout}>
+            Logout
           </button>
         </div>
       </div>
@@ -87,6 +117,13 @@ const Home = () => {
 </div>
 
   
+<button className="profile-completion" onClick={handleCompleteProfile}>
+  Complete Your Profile
+</button>
+<button className="send-link-button" onClick={sendVerificationEmail}>
+  Send Verification Email 
+</button>
+
 </div>
 
     </div>

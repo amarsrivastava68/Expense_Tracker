@@ -27,34 +27,66 @@
   cursor: pointer;
   border-radius: 5px; /* Add rounded corners to the button */
 }
-
+.header .right .Logout {
+  background-color: #dd1d1d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px; /* Add rounded corners to the button */
+}
 .profile-form {
-  max-width: 800px;
+  border: 1px solid #ccc;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  display: flex; /* Display children horizontally */
-  flex-direction: column; /* Stack children vertically within the container */
+  width: 700px; /* Made the box wider */
 }
 
 .profile-input {
   display: flex;
-  flex-direction: row; /* Display name and input fields side by side */
   align-items: center;
-  margin: 10px 0;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .profile-input label {
-  font-weight: bold;
-  flex: 1; /* Allow label to grow and take available space */
+  font-size: 16px;
+  margin-right: 20px; /* Increased the gap between the tags and the actual input fields */
 }
 
 .profile-input input {
-  flex: 3; /* Allow input field to grow and take available space */
+  flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-top: 5px;
   font-size: 16px;
+}
+
+.profile-buttons {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profile-completion {
+  background-color: #2980b9;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send-link-button {
+  background-color: #ccc;
+  color: #666;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-completion:hover {
+  background-color: #3498db;
+}
+
+.send-link-button:hover {
+  background-color: #ddd;
 }
