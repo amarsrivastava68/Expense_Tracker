@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Home.css"; // Import your CSS file
 import ProfileModal from "../components/ProfileModal";
 import AuthContext from "../store/auth-context";
+import Expenseform from "../Expenses/ExpenseForm";
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [userName, setUserName] = useState("");
   const [userProfileURL, setUserProfileURL] = useState("");
   const [email , setemail] = useState("")
+
 
   const authCtx = useContext(AuthContext);
 
@@ -125,6 +127,7 @@ const Home = () => {
 </button>
 
 </div>
+<Expenseform />
 
     </div>
   );
