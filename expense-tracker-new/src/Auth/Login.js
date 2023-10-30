@@ -84,9 +84,10 @@ const Login = () => {
   };
 
   return (
-    <div className="main-login-page">
+    
       <div className="d-flex justify-content-center align-items-center vh-100 ">
         <Form
+        className="my-50%"
           style={{
             width: "300px",
             padding: "20px",
@@ -156,7 +157,7 @@ const Login = () => {
           </div>
         </Form>
       </div>
-    </div>
+    
   );
 };
 
