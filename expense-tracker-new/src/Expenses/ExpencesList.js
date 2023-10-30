@@ -10,7 +10,7 @@ const ExpensesList = ({ onDelete }) => {
   useEffect(() => {
     
     fetch(
-      "https://expance-tracker-3483a-default-rtdb.firebaseio.com/expenses.json"
+      "https://authentication-66cfd-default-rtdb.firebaseio.com//expenses.json"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -27,7 +27,7 @@ const ExpensesList = ({ onDelete }) => {
 
   const deleteHandler = (expenseId) => {
     console.log(expenseId);
-    const deleteUrl = `https://expance-tracker-3483a-default-rtdb.firebaseio.com/expenses/${expenseId}.json`;
+    const deleteUrl = `https://authentication-66cfd-default-rtdb.firebaseio.com//expenses/${expenseId}.json`;
 
     fetch(deleteUrl, {
       method: "DELETE",

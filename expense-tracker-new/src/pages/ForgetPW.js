@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-
+import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./ForgotPassword.css"
+import "./ForgetPw.css"
 
 const ForgetPassWord = () => {
   const [email, setEmail] = useState(""); 
@@ -47,28 +47,24 @@ const ForgetPassWord = () => {
     <div className="forget-password-container">
       <div className="forget-password-form">
         <p>Enter the email with which you have registered</p>
-        <div className="form-container">
-  <form>
-    <label className="form-label">Enter Email:</label>
-    <input
-      className="form-input"
-      type="email"
-      placeholder="Email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      required
-    />
-  </form>
-  <button className="primary-button" onClick={sendPasswordResetLink}>
-    Send Link
-  </button>
-  {loading && <div className="info-message">Sending Verification mail...</div>}
-  <div className="info-message mt-2">{message}</div>
-  <Link to="/" className="complete-button">
-    Already a user? Login.
-  </Link>
-</div>
-
+        <Form.Group className="mb-3">
+          <Form.Label>Enter Email:</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Button variant="primary" onClick={sendPasswordResetLink}>
+          Send Link
+        </Button>
+        {loading && <div>Sending Verification mail...</div>}
+        <div className="mt-2">{message}</div>
+        <Link to="/login" className="complete-button">
+              Already a user? Login.
+            </Link>
       </div>
     </div>
     </div>

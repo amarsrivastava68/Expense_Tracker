@@ -1,131 +1,153 @@
-import React, { useState, useContext } from "react";
-
-import classes from "./LoginPage.module.css";
-import AuthContext from "../store/auth-context";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import "./LoginPage.css";
+import { Link } from "react-router-dom";
+import VerifyEmail from "./VeifyEmail";
+import LogOut from "./LogOut";
+import ExpenceForm from "../Expenses/ExpenceForm";
+import ExpencesList from "../Expenses/ExpencesList"
+import { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
+import { toggleTheme } from "../Store/themeReducer";
+import { useSelector, useDispatch } from "react-redux";
 
 const LoginPage = () => {
-  const [haveAccount, sethaveAccount] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [userPass, setUserPass] = useState("");
-  const authCtx = useContext(AuthContext);
-  const navigate = useNavigate();
-  
-  const switchAuthModeHandler = () => {
-    sethaveAccount((prev) => !prev);
-  };
-  const FPwHandler = ()=>{
-    
-    navigate('/fpw');
-  }
+  const [expenses, setExpenses] = useState([]);
+  const theme = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
+  const [premiumClicked, setPremiumClicked] = useState(false);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    let url;
-    if (haveAccount) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5b9Cds4vuHy_NCTXaZORHjjUDh-OQmn0";
-    } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB5b9Cds4vuHy_NCTXaZORHjjUDh-OQmn0";
-    }
-
-    try {
-      const resp = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          email: userName,
-
-          password: userPass,
-          returnSecureToken: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+  useEffect(() => {
+    fetch(
+      "https://authentication-66cfd-default-rtdb.firebaseio.com/expenses.json"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const fetchedExpenses = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setExpenses(fetchedExpenses);
+      })
+      .catch((error) => {
+        console.error("Error fetching expenses", error);
       });
+  }, []);
 
-      console.log(resp);
-      setIsLoading(false);
-      if (resp.ok) {
-        const data = await resp.json();
-        authCtx.login(data.idToken, userName);
-        console.log(data);
-        navigate("/home");
-      } else {
-        let errorMessage = "Authentication failed";
-        const data = await resp.json();
-        console.log(data);
-        errorMessage = data.error.message;
-        throw new Error(errorMessage);
-      }
-    } catch (error) {
-      window.alert(error.message);
-      console.log(error.message);
-    }
+  const togglePremium = () => {
+    setPremiumClicked(!premiumClicked);
+  };
+
+  const editExpense = (editedExpense) => {
+    const editUrl = `https://authentication-66cfd-default-rtdb.firebaseio.com/expenses/${editedExpense.id}.json`;
+
+    fetch(editUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedExpense),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to edit expense details");
+        }
+        return response.json();
+      })
+      .then(() => {
+        console.log("Expense details edited successfully");
+      })
+      .catch((error) => {
+        console.log("Error editing expense details", error);
+      });
+  };
+
+  const addExpense = (newExpense) => {
+    setExpenses([...expenses, newExpense]);
+  };
+
+  const deleteExpense = (expenseId) => {
+    const updatedExpenses = expenses.filter(
+      (expense) => expense.id !== expenseId
+    );
+    setExpenses(updatedExpenses);
+  };
+
+  const totalExpenseAmount = expenses.reduce(
+    (total, expense) => total + expense.amount,
+    0
+  );
+
+  const downloadCSV = () => {
+    const csvData = expenses.map((expense) => {
+      // Format the data as a CSV row
+      return `${expense.amount},${expense.description},${expense.category}`;
+    });
+
+    // Join all CSV rows with line breaks
+    const csvContent = csvData.join("\n");
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: "text/csv" });
+
+    // Create a download link
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "expenses.csv";
+
+    // Trigger the download
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   };
 
   return (
-    <div className={classes.loginpage}>
-      
-    <form onSubmit={submitHandler} className={classes.form}>
-      <div className={classes.formInside}>
-        <h2>Please {haveAccount ? "Login" : "Sign Up"} Here</h2>
-        <div className={classes.enterVal}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
+    <div
+      className={`main-login-div ${theme} ${
+        premiumClicked ? "dark-theme" : ""
+      }`}
+    >
+      <div className="login-page-container">
+        <div className="left-div">
+          <h5>Welcome to Expense Tracker !!!</h5>
         </div>
-        <div className={classes.enterVal}>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={userPass}
-            onChange={(e) => setUserPass(e.target.value)}
-          />
+        <div className="right-div">
+          <div className="profile-para">
+            <p>Your Profile is incomplete. Please complete it.</p>
+            <Link to="/profile" className="complete-button">
+              Complete Now
+            </Link>
+          </div>
         </div>
-        {/* <button type='submit'>Submit</button> */}
-
-        {!isLoading && (
-          <>
-            <button type="submit">
-              {haveAccount ? "Login" : "Create Account with this data"}
-            </button>
-
-         
-
-          </>
-        )}
-        
-
-        {!isLoading && (
-          <button
-            type="button"
-            className={classes.toggle}
-            onClick={switchAuthModeHandler}
-          >
-            {haveAccount
-              ? " OR / Create a New Account"
-              : "OR / Login with your account "}
-          </button>
-        )}
-        {isLoading && (
-          <p>
-            <b>Sending Requests...</b>
-          </p>
-        )}
-        {haveAccount &&  <button  type= "button"  onClick={FPwHandler}>Forgot Password ?</button> }
-        
       </div>
-       
-    </form>
-   
+      <div className="verify-email-logout">
+        {totalExpenseAmount > 10000 && (
+          <div className="theme-toggle">
+            <Button
+              className="activate-premium-button"
+              onClick={() => {
+                toggleTheme({ type: "TOGGLE_THEME" });
+                togglePremium(); 
+              }}
+            >
+              Activate Premium
+            </Button>
+            <Button
+          className="download-csv-button"
+          onClick={downloadCSV} 
+        >
+          Download Data
+        </Button>
+          </div>
+        )}
+
+        <VerifyEmail />
+        <LogOut />
+      </div>
+      <ExpenceForm addExpense={addExpense} onEdit={editExpense} />
+      <ExpencesList expenses={expenses} onDelete={deleteExpense} />
     </div>
   );
 };

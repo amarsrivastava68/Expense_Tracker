@@ -39,10 +39,10 @@ const Login = () => {
     let url;
     if (isLogin) {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDA0MnYovAyBq-q5_FGCq5ZyxG_OYvpF50";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5b9Cds4vuHy_NCTXaZORHjjUDh-OQmn0";
     } else {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDA0MnYovAyBq-q5_FGCq5ZyxG_OYvpF50";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB5b9Cds4vuHy_NCTXaZORHjjUDh-OQmn0";
     }
 
     fetch(url, {

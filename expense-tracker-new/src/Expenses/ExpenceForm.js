@@ -14,7 +14,7 @@ const ExpenceForm = ({ addExpense }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const StoreUrl = 'https://expance-tracker-3483a-default-rtdb.firebaseio.com/expenses.json';
+    const StoreUrl = 'https://authentication-66cfd-default-rtdb.firebaseio.com/expenses.json';
 
     const expense = {
       amount: parseFloat(amount),

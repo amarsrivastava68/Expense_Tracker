@@ -2,9 +2,9 @@ import './App.css';
 import Login from './Auth/Login';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
-import Profile from './Pages/Profile';
-import LoginPage from './Pages/LoginPage';
-import ForgetPassWord from './Pages/ForgetPW';
+import Profile from './pages/Profile';
+import LoginPage from './pages/LoginPage';
+import ForgetPassWord from './pages/ForgetPW';
 import { useSelector } from 'react-redux';
 
 function App() {

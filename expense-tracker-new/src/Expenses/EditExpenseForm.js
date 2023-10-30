@@ -11,7 +11,7 @@ const EditExpenseForm = ({ expense, onEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    const editUrl = `https://expance-tracker-3483a-default-rtdb.firebaseio.com/expenses/${editedExpense.id}.json`;
+    const editUrl = `https://authentication-66cfd-default-rtdb.firebaseio.com/expenses/${editedExpense.id}.json`;
 
     fetch(editUrl, {
       method: "PUT",
