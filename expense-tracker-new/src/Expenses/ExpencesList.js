@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
 import EditExpenseForm from "./EditExpenseForm";
 import "./ExpenseList.css"
-
+import { useSelector } from "react-redux";
 const ExpensesList = ({ onDelete }) => {
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [expenses, setExpenses] = useState([]);
+  const userId = useSelector((state) => state.auth.userId);
 
+  const extracted =  userId?.replace('@', '').replace('.', '');
   useEffect(() => {
     
     fetch(
-      "https://authentication-66cfd-default-rtdb.firebaseio.com//expenses.json"
+      `https://authentication-66cfd-default-rtdb.firebaseio.com/expenses/${extracted}.json`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -27,7 +29,7 @@ const ExpensesList = ({ onDelete }) => {
 
   const deleteHandler = (expenseId) => {
     console.log(expenseId);
-    const deleteUrl = `https://authentication-66cfd-default-rtdb.firebaseio.com//expenses/${expenseId}.json`;
+    const deleteUrl = `https://authentication-66cfd-default-rtdb.firebaseio.com/expenses/${extracted}/${expenseId}.json`;
 
     fetch(deleteUrl, {
       method: "DELETE",
