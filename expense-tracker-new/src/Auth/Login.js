@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../Store/authReducer";
@@ -15,7 +15,7 @@ const Login = () => {
   const passwordInputRef = useRef(null);
   const confirmPasswordInputRef = useRef(null);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -68,14 +68,16 @@ const Login = () => {
       })
       .then((data) => {
         const token = data.idToken;
-        console.log(token);
+        const email = data.email
+        console.log('this is email ' , email)
+        console.log('this is token ' ,token);
 
-        dispatch(loginAction(token));
+        dispatch(loginAction({token , email}));
 
         emailInputRef.current.value = "";
         passwordInputRef.current.value = "";
 
-        history.push("/loginPage");
+        navigate("/loginPage");
       })
       .catch((err) => {
         alert(err.message);
@@ -84,10 +86,9 @@ const Login = () => {
   };
 
   return (
-    
+    <div className="main-login-page">
       <div className="d-flex justify-content-center align-items-center vh-100 ">
         <Form
-        className="my-50%"
           style={{
             width: "300px",
             padding: "20px",
@@ -157,7 +158,7 @@ const Login = () => {
           </div>
         </Form>
       </div>
-    
+    </div>
   );
 };
 
