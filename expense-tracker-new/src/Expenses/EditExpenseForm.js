@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-
+import { useSelector } from "react-redux";
 const EditExpenseForm = ({ expense, onEdit }) => {
   const [editedExpense, setEditedExpense] = useState({ ...expense });
 
+  const userId = useSelector((state) => state.auth.userId);
+
+  const extracted = userId?.replace("@", "").replace(".", "");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedExpense({ ...editedExpense, [name]: value });
@@ -10,8 +13,8 @@ const EditExpenseForm = ({ expense, onEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const editUrl = `https://authentication-66cfd-default-rtdb.firebaseio.com/expenses/${editedExpense.id}.json`;
+
+    const editUrl = `https://authentication-66cfd-default-rtdb.firebaseio.com/expenses/${extracted}/${editedExpense.id}.json`;
 
     fetch(editUrl, {
       method: "PUT",
